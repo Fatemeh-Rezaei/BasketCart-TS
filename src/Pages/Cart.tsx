@@ -1,47 +1,53 @@
-import React, { useContext } from "react";
-import "./Cart.css";
+import { useContext } from "react";
 import { AiFillStar, AiOutlineDelete, AiOutlineStar } from "react-icons/ai";
+
+import { CartContext } from "../context/CartContext";
+
+import "./Cart.css";
+
 export default function Cart() {
+  const context = useContext(CartContext);
+
   return (
     <>
-      {true ? ( // if shoppping cart is not empty
+      {context.UserCart.length !== 0 ? ( // if shoppping cart is not empty
         <>
           <section className="cart-topbar">
             <p className="title">All Products In Basket:</p>
-            <button>
-              Remove All Product <AiOutlineDelete className="delete-icon" />
+            <button onClick={context.removeAll}>
+              Remove All Products <AiOutlineDelete className="delete-icon" />
             </button>
           </section>
           <main className="card-index">
-            <div className="card">
-              <img
-                src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-                alt=""
-              />
-              <main>
-                <p>Test Title ...</p>
-                <div className="card-details">
-                  <div>
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
+            {context.UserCart.map((p) => (
+              <div className="card">
+                <img src={p.image} alt="" />
+                <main>
+                  <p>{p.title.slice(0, 13)} ...</p>
+                  <div className="card-details">
+                    <div>
+                      {Array(Math.ceil(p.rating.rate))
+                        .fill(0)
+                        .map(() => (
+                          <AiFillStar style={{ color: "orange" }} />
+                        ))}
+                      {Array(5 - Math.ceil(p.rating.rate))
+                        .fill(0)
+                        .map(() => (
+                          <AiOutlineStar style={{ color: "orange" }} />
+                        ))}
+                    </div>
+                    <p>{p.price} $</p>
                   </div>
-                  <p>111$</p>
-                </div>
-                <div className="product-count">
-                  <p>Count: 22</p>
-                </div>
-                <button>Remove From Basket</button>
-              </main>
-            </div>
+                  <div className="product-count">
+                    <p>Count: {p.count}</p>
+                  </div>
+                  <button onClick={() => context.removeProduct(p.id)}>
+                    Remove From Basket
+                  </button>
+                </main>
+              </div>
+            ))}
           </main>
         </>
       ) : (

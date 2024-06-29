@@ -7,23 +7,23 @@ import CartContextProvider from "./context/CartContext";
 import "./App.css";
 
 function App() {
-  const router = useRoutes(routes)
+  const router = useRoutes(routes);
 
   return (
     <CartContextProvider>
-    <div className="app">
-      <Header />
+      <div className="app">
+        <Header />
 
-      {router }
+        {router}
 
-      {/* Finish Content */}
+        {/* Finish Content */}
 
-      <footer>
-        <a target={"_blank"} href="https://sabzlearn.ir">
-          Developed by Fatemeh with ♥
-        </a>
-      </footer>
-    </div>
+        <footer>
+          <a target={"_blank"} href="https://sabzlearn.ir">
+            Developed by Fatemeh with ♥
+          </a>
+        </footer>
+      </div>
     </CartContextProvider>
   );
 }
