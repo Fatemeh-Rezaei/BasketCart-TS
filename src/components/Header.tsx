@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
+import { CartContext } from '../context/CartContext'
 
 function Header() {
+    const cart = useContext(CartContext)
+
     return (
         <header>
-            <a className="logo" href="#">
+            <Link className="logo" to="/">
                 Shop
-            </a>
-            <a href="#">
+            </Link>
+            <Link to="/cart">
                 <AiOutlineShoppingCart className="shop-icon" />
-                <span>2</span>
-            </a>
+                <span>{cart.UserCart.length}</span>
+            </Link>
         </header>
     )
 }

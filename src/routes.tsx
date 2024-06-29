@@ -1,8 +1,8 @@
-import App from "./App";
 import Cart from "./Pages/Cart";
+import Home from "./Pages/home/Home";
 
 const routes = [
-    { path: "/", element: <App /> },
+    { path: "/", element: <Home /> },
     { path: "/cart", element: <Cart /> }
 ]
 
